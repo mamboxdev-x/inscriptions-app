@@ -44,6 +44,10 @@ Le rôle doit être dans `app_metadata`; ne le définis pas dans `user_metadata`
 
 La liste des promotions proposée va de IT12 à IT30; adapte `PROMOTIONS` dans `src/utils/validation.js` et la liste correspondante de l’administration si de nouvelles promotions doivent être ajoutées. L’application stocke le pays et la ville ensemble dans la colonne `adresse` (« pays, ville »). Les portraits sont privés; seuls les administrateurs obtiennent des URL signées.
 
+### Réparer une erreur « permission denied for table inscriptions »
+
+Si le formulaire public renvoie une erreur de permission sur `inscriptions`, ouvre **Supabase → SQL Editor → New query**, copie-colle [`scripts/repair-registration-permissions.sql`](./scripts/repair-registration-permissions.sql), puis clique **Run**. Ce script restaure uniquement le droit d’ajouter une inscription validée (sans lecture publique), conserve les dossiers existants et remet à jour les fonctions admin qui incluent la promotion.
+
 ## Lancer et vérifier
 
 ```bash
