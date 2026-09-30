@@ -2,6 +2,7 @@
 -- Adds the promotion column safely while keeping existing registration records.
 alter table public.inscriptions
   add column if not exists promotion text not null default 'IT12';
+alter table public.inscriptions alter column promotion set default 'IT12';
 
 alter table public.inscriptions
   drop constraint if exists inscriptions_promotion_check;
