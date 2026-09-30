@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 
 const columns = [
   ['id', 'Identifiant', 38], ['nom', 'Nom', 20], ['prenoms', 'Prénoms', 26], ['sexe', 'Sexe', 12],
-  ['date_naissance', 'Date de naissance', 19], ['telephone', 'Téléphone', 20], ['email', 'Email', 30],
+  ['date_naissance', 'Date de naissance', 19], ['promotion', 'Promotion', 16], ['telephone', 'Téléphone', 20], ['email', 'Email', 30],
   ['adresse', 'Adresse (pays et ville)', 32], ['niveau', 'Niveau d’étude', 20],
   ['etablissement', 'Établissement', 30], ['photo_url', 'Portrait (URL)', 38], ['created_at', 'Date d’inscription', 23],
 ];

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, Camera, CheckCircle2, LoaderCircle, ShieldCheck } from 'lucide-react';
-import { emptyRegistration, validateRegistration } from '../utils/validation';
+import { emptyRegistration, PROMOTIONS, validateRegistration } from '../utils/validation';
 import { submitRegistration } from '../services/inscriptions';
 
 const inputFields = [
@@ -59,6 +59,7 @@ export default function RegistrationForm() {
           {inputFields.slice(0, 2).map(field => <TextField key={field.name} field={field} value={values[field.name]} error={errors[field.name]} onChange={change} />)}
           <div className="field"><label htmlFor="sexe">Sexe <Required /></label><select id="sexe" name="sexe" value={values.sexe} onChange={e => change('sexe', e.target.value)} aria-invalid={!!errors.sexe}><option value="">Sélectionner</option><option value="Femme">Femme</option><option value="Homme">Homme</option><option value="Autre">Autre</option></select><FieldError error={errors.sexe} /></div>
           <div className="field"><label htmlFor="date_naissance">Date de naissance <Required /></label><input id="date_naissance" name="date_naissance" type="date" max={new Date().toISOString().slice(0, 10)} value={values.date_naissance} onChange={e => change('date_naissance', e.target.value)} aria-invalid={!!errors.date_naissance} /><FieldError error={errors.date_naissance} /></div>
+          <div className="field"><label htmlFor="promotion">Promotion <Required /></label><select id="promotion" name="promotion" value={values.promotion} onChange={e => change('promotion', e.target.value)} aria-invalid={!!errors.promotion}><option value="">Sélectionner votre promotion</option>{PROMOTIONS.map(item => <option key={item} value={item}>{item}</option>)}</select><FieldError error={errors.promotion} /></div>
           {inputFields.slice(2, 6).map(field => <TextField key={field.name} field={field} value={values[field.name]} error={errors[field.name]} onChange={change} />)}
           <div className="field"><label htmlFor="niveau">Niveau d’étude <Required /></label><select id="niveau" name="niveau" value={values.niveau} onChange={e => change('niveau', e.target.value)} aria-invalid={!!errors.niveau}><option value="">Sélectionner un niveau</option>{['Collège', 'Lycée', 'Baccalauréat', 'Bac+1', 'Bac+2', 'Bac+3', 'Bac+4', 'Bac+5', 'Doctorat', 'Autre'].map(item => <option key={item}>{item}</option>)}</select><FieldError error={errors.niveau} /></div>
           {inputFields.slice(6).map(field => <TextField key={field.name} field={field} value={values[field.name]} error={errors[field.name]} onChange={change} wide />)}

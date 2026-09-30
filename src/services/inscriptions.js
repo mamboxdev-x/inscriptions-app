@@ -23,7 +23,7 @@ export async function submitRegistration(values, photo) {
   if (error) throw error;
 }
 
-export async function fetchInscriptions({ page = 0, search = '', ville = '', niveau = '', ascending = false } = {}) {
+export async function fetchInscriptions({ page = 0, search = '', ville = '', niveau = '', promotion = '', ascending = false } = {}) {
   if (!supabase) throw new Error('Supabase n’est pas configuré.');
   const from = page * PAGE_SIZE;
   const { data, error } = await supabase.rpc('admin_list_inscriptions', {
@@ -33,6 +33,7 @@ export async function fetchInscriptions({ page = 0, search = '', ville = '', niv
     p_ascending: ascending,
     p_offset: from,
     p_limit: PAGE_SIZE,
+    p_promotion: promotion || null,
   });
   if (error) throw error;
   let rows = data ?? [];
@@ -61,7 +62,7 @@ export async function getInscriptionsFilterOptions() {
   let villes = [];
   let niveaux = [];
   for (let start = 0; ; start += 1000) {
-    const { data, error } = await supabase.from(TABLE).select('adresse,niveau').order('id').range(start, start + 999);
+    const { data, error } = await supabase.from(TABLE).select('adresse,niveau,promotion').order('id').range(start, start + 999);
     if (error) throw error;
     villes.push(...(data ?? []).map(row => row.adresse?.split(',').at(-1)?.trim()).filter(Boolean));
     niveaux.push(...(data ?? []).map(row => row.niveau).filter(Boolean));

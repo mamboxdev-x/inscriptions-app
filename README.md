@@ -1,6 +1,6 @@
 # Plateforme d’inscription AICPES
 
-Application web responsive de préinscription AICPES : formulaire public, stockage privé des portraits, authentification administrateur, recherche/filtres/pagination, édition/suppression et export Excel.
+Application web responsive de préinscription pour l’Association des Ingénieurs issus des Classes Préparatoires de l’ESATIC (AICPES). Elle comprend un formulaire public, la promotion de chaque membre, le stockage privé des portraits, l’authentification administrateur, la recherche/filtres/pagination, l’édition/suppression et l’export Excel.
 
 ## Prérequis
 
@@ -42,7 +42,7 @@ where id = 'UUID-DU-COMPTE-ADMIN';
 
 Le rôle doit être dans `app_metadata`; ne le définis pas dans `user_metadata` et ne l’accorde jamais depuis l’interface publique.
 
-L’application stocke le pays et la ville ensemble dans la colonne `adresse` (« pays, ville »). Les portraits sont privés; seuls les administrateurs obtiennent des URL signées.
+La liste des promotions proposée va de IT12 à IT30; adapte `PROMOTIONS` dans `src/utils/validation.js` et la liste correspondante de l’administration si de nouvelles promotions doivent être ajoutées. L’application stocke le pays et la ville ensemble dans la colonne `adresse` (« pays, ville »). Les portraits sont privés; seuls les administrateurs obtiennent des URL signées.
 
 ## Lancer et vérifier
 

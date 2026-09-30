@@ -2,10 +2,22 @@ import { test, expect } from '@playwright/test';
 import fs from 'node:fs/promises';
 
 const fixture = {
-  id: 'uuid-1', nom: 'Kouassi', prenoms: 'Aïcha', sexe: 'Femme', date_naissance: '2002-04-03',
+  id: 'uuid-1', nom: 'Kouassi', prenoms: 'Aïcha', sexe: 'Femme', date_naissance: '2002-04-03', promotion: 'IT12',
   telephone: '+225 07 00 00 00 00', email: 'aicha@example.ci', adresse: 'Côte d’Ivoire, Abidjan',
   niveau: 'Bac+3', etablissement: 'ESATIC', photo_url: null, created_at: '2026-09-30T10:00:00Z', total_count: 1,
 };
+
+test('registration form offers promotions IT12 through IT30', async ({ page }) => {
+  await page.goto('/');
+  const options = await page.getByLabel('Promotion *').locator('option').allTextContents();
+  expect(options).toEqual(['Sélectionner votre promotion', ...Array.from({ length: 19 }, (_, index) => `IT${index + 12}`)]);
+});
+
+test('admin login page is presented when backend environment is missing', async ({ page }) => {
+  await page.addInitScript(() => { window.localStorage.clear(); });
+  await page.goto('/admin');
+  await expect(page.getByRole('heading', { name: 'Connexion admin' })).toBeVisible();
+});
 
 test.skip('complete registration submits validated details and portrait (requires configured Supabase)', async ({ page }) => {
   await page.goto('/');
@@ -19,6 +31,7 @@ test.skip('complete registration submits validated details and portrait (require
   await page.getByLabel('Prénoms *').fill('Aïcha');
   await page.getByLabel('Sexe *').selectOption('Femme');
   await page.getByLabel('Date de naissance *').fill('2002-04-03');
+  await page.getByLabel('Promotion *').selectOption('IT12');
   await page.getByLabel('Téléphone *').fill('+225 07 00 00 00 00');
   await page.getByLabel('Adresse e-mail *').fill('aicha@example.ci');
   await page.getByLabel('Pays *').fill('Côte d’Ivoire');
